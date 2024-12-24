@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>幽梦导航</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1 0 auto;
+        }
+
+        .footer {
+            flex-shrink: 0;
+            padding: 15px 0;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+        }
+
+        .category-title {
+            font-size: 16px;
+            color: #666;
+            background-color: #f1f3f4;
+            padding: 8px 16px;
+            margin: 20px 0 15px 0;
+            border-radius: 4px;
+        }
+
+        .site-card {
+            width: 220px;
+            height: 90px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .site-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .site-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 12px;
+            border-radius: 8px;
+        }
+
+        .site-info {
+            flex: 1;
+        }
+
+        .site-name {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .site-url {
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-12">幽梦导航</h1>
+
+        <div id="categories" class="space-y-6">
+        </div>
+    </div>
+
+    <footer class="footer text-center text-gray-500 text-sm">
+        <p>&copy; 2024 幽梦导航. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const categories = [
+        {
+           name: '搜索引擎',
+           sites: [
+               { name: '谷歌', url: 'https://www.google.com' },
+               { name: '百度', url: 'https://www.baidu.com' },
+               { name: '搜狗', url: 'https://www.sogou.com' },
+               { name: '360搜索', url: 'https://www.so.com' },
+               { name: 'DuckDuckGo', url: 'https://duckduckgo.com' },
+               { name: '必应', url: 'https://www.bing.com' }
+           ]
+        },
+        {
+           name: '常用网站',
+           sites: [
+               { name: 'Chatgpt', url: 'https://chat.openai.com' },
+               { name: 'Gcore', url: 'https://www.gcore.com' },
+               { name: 'DuckGo AI', url: 'https://duckduckgo.com' },
+               { name: 'Cloudflare', url: 'https://www.cloudflare.com' },
+               { name: 'Github', url: 'https://www.github.com' },
+               { name: 'Gitlab', url: 'https://www.gitlab.com' }
+           ]
+        },
+        {
+           name: '视频网站',
+           sites: [
+               { name: '哔哩哔哩', url: 'https://www.bilibili.com' },
+               { name: '优酷', url: 'https://www.youku.com' },
+               { name: '爱奇艺', url: 'https://www.iqiyi.com' },
+               { name: '腾讯视频', url: 'https://v.qq.com' },
+               { name: 'YouTube', url: 'https://www.youtube.com' },
+               { name: 'Netflix', url: 'https://www.netflix.com' }
+           ]
+        },
+        {
+           name: '购物网站',
+           sites: [
+               { name: '淘宝', url: 'https://www.taobao.com' },
+               { name: '京东', url: 'https://www.jd.com' },
+               { name: '拼多多', url: 'https://www.pinduoduo.com' },
+               { name: '天猫', url: 'https://www.tmall.com' },
+               { name: '亚马逊', url: 'https://www.amazon.com' },
+               { name: 'eBay', url: 'https://www.ebay.com' }
+           ]
+        },
+        {
+           name: '社交媒体',
+           sites: [
+               { name: '微博', url: 'https://weibo.com' },
+               { name: '知乎', url: 'https://www.zhihu.com' },
+               { name: '豆瓣', url: 'https://www.douban.com' },
+               { name: 'Twitter', url: 'https://twitter.com' },
+               { name: 'Facebook', url: 'https://www.facebook.com' },
+               { name: 'LinkedIn', url: 'https://www.linkedin.com' }
+           ]
+        },
+        {
+           name: '学习平台',
+           sites: [
+               { name: '中国大学MOOC', url: 'https://www.icourse163.org' },
+               { name: '慕课网', url: 'https://www.imooc.com' },
+               { name: '学堂在线', url: 'https://www.xuetangx.com' },
+               { name: 'Coursera', url: 'https://www.coursera.org' },
+               { name: 'edX', url: 'https://www.edx.org' },
+               { name: 'Udemy', url: 'https://www.udemy.com' }
+           ]
+        }
+        ];
+
+        const categoriesContainer = document.getElementById('categories');
+
+        categories.forEach(category => {
+            const categorySection = document.createElement('div');
+            categorySection.innerHTML = `
+                <h2 class="category-title">${category.name}</h2>
+                <div class="flex flex-wrap gap-4">
+                    ${category.sites.map(site => `
+                        <a href="${site.url}" target="_blank" class="site-card">
+                            <img src="https://favicon.zhusl.com/ico?url=${site.url}" class="site-icon" alt="${site.name} icon">
+                            <div class="site-info">
+                                <div class="site-name">${site.name}</div>
+                                <div class="site-url">${site.url}</div>
+                            </div>
+                        </a>
+                    `).join('')}
+                </div>
+            `;
+            categoriesContainer.appendChild(categorySection);
+        });
+    </script>
+</body>
+</html>
